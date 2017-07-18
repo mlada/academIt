@@ -1,0 +1,110 @@
+head {
+    display:none;
+}
+*{
+    display:flex;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    padding: 0;
+    margin:0;
+}
+body{
+    font-family: 'Roboto','Tahoma',sans-serif;
+    font-size:18px;
+    color: #555555;
+    width: 100vw;
+    background-color: #eeeeee;
+    flex-direction:column;
+    justify-content:center;
+    align-items: center;
+    height: 100vh;
+    height: 100%;
+}
+.recipts{
+    max-width:800px;
+    background-color: #ffffff;
+    padding: 10px 10px 10px 20px;
+    flex-direction:column;
+}
+.recipts .block {
+    padding: 20px 0;
+    border-bottom: 1px solid #579cac;
+}
+.recipts .block:last-child {
+    border-bottom: none;
+}
+ul{
+    flex-direction:column;
+}
+ul li {
+    padding: 10px 0;
+}
+h1,h2{
+    color:#579cac;
+    padding: 10px 0;
+    margin:0 auto;
+    text-align: center;
+}
+h1{
+    font-size:180%;
+}
+h2{
+    font-size: 150%
+}
+article{
+    line-height: 1.5;
+}
+article#ingrdients{
+    margin: 0 auto;
+    border: 1px solid #555;
+    line-height: 1;
+    width: 50%;
+    padding: 10px
+}
+.recipts .block > img{
+    width: 100%
+    max-width: 600px;
+    height:auto;
+    margin:0 auto;
+    cursor:pointer;
+}
+.form form{
+    width: 100%;
+    max-width:800px;
+    padding: 20px;
+    background-color: #fff
+}
+.form form ul li{
+    width:100%;
+    flex-direction:row;
+    flex-wrap:wrap;
+}
+.form form ul li label{
+    width:200px;
+}
+.form form ul li input,.form form ul li textarea,.form form ul li select option{
+    min-width:300px;
+    width:100%;
+    flex:1;
+    outline: none;
+}
+
+.error{
+    border: 1px solid red;
+}
+ul#education {
+    flex-direction:column;
+    flex:1 0 150px;
+    
+}
+ul#education li{
+    text-align: left
+    flex-direction:row;
+}
+ul#education li input{
+    flex: 0 0 15px;
+}
+ul#education li p{
+    margin-top:-5px;
+}
