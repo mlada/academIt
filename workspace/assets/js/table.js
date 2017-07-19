@@ -6,7 +6,8 @@
     });
 
     function init(){
-        //Пишем свой код 
+        var tab = document.getElementById('mendeleev');
+        
     }
 
 }());
