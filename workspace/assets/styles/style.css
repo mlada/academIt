@@ -1,4 +1,4 @@
-head {
+head,script {
     display:none;
 }
 *{
@@ -107,4 +107,10 @@ ul#education li input{
 }
 ul#education li p{
     margin-top:-5px;
+}
+.table{
+    max-width:800px;
+    background-color: #ffffff;
+    padding: 10px 10px 10px 20px;
+    flex-direction:column;
 }
