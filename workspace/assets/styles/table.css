@@ -1,5 +1,7 @@
 .bg {
 	background-color: #eedce4;
+	transition-property: background-color;
+	transition-duration: 1s;
 }
 .cool{
 	background-color: #ebeec4;
