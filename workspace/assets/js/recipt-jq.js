@@ -8,4 +8,20 @@ $(window).on("load",function(){
             li.text(products[i]);
         })
     ));
+    var boldWords = [
+        "Смешайте",
+        "Накройте",
+        "вкуснее",
+        "вытащите",
+        "духовку",
+        "овальные",
+        "жидкости",
+        "хозяйкам",
+        "воды",
+        "получилась",
+        "тесто"
+    ];
+    $.each(boldWords,function(i){
+        li.text(products[i]);
+    });
 });
