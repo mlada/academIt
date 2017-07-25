@@ -3,9 +3,9 @@ $(window).on("load",function(){
         includeBlock=$("#ingrdients"),
         ul=$("<ul></ul>"),
         li=$("<li></li>");
-    console.log(includeBlock);
-    products.each(function(i){
-        li.text(i).appendTo(ul);
-    }).appendTo(includeBlock);
-    $("#recipts-img").click(this.remove());
+    $("#recipts-img").on("click",function(e){e.target.remove()});
+    includeBlock.append(ul.append($.each(products,function(i){
+            li.text(products[i]);
+        })
+    ));
 });
