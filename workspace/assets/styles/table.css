@@ -1,8 +1,12 @@
 .bg {
-	background-color: #eedce4;
 	transition-property: background-color;
-	transition-duration: 1s;
+	transition-duration: .2s;
 }
-.cool{
+
+.bg:hover {
+	background-color: #eedce4;
+}
+
+.cool {
 	background-color: #ebeec4;
 }
