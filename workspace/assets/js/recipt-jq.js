@@ -21,7 +21,11 @@ $(window).on("load",function(){
         "получилась",
         "тесто"
     ];
-    $.each(boldWords,function(i){
-        li.text(products[i]);
-    });
+//     console.log(boldWords);
+    var a = $('li:contains("тесто")').text().replace('тесто','ХХХХХХХХХХХХХХ');
+undefined
+    	$.each(boldWords,function(i){
+    		
+//         	$("body").html().replace(boldWords[i],'2');
+    	});
 });
