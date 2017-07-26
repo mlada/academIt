@@ -31,6 +31,12 @@ body{
     padding: 20px 0;
     border-bottom: 1px solid #579cac;
 }
+.recipts .block h2{
+    cursor:pointer;
+}
+.recipts .block h2:hover{
+    color: #0f7595;
+}
 .recipts .block:last-child {
     border-bottom: none;
 }
