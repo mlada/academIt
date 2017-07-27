@@ -23,7 +23,7 @@
 			this.name = document.getElementById('name').value;
 			this.surname = document.getElementById('surname').value;
 			this.country = document.querySelectorAll("select[name='country']");
-			this.subscribe = document.querySelectorAll("input[name='subsctibe']");
+			this.subscribe = document.querySelectorAll("input[name='subscribe']");
 			this.education = document.querySelectorAll("input[name='education']");
 			this.about = document.getElementById('about').value;
 			console.log(this);

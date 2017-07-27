@@ -8,24 +8,28 @@ $(window).on("load",function(){
             li.text(products[i]);
         })
     ));
-    var boldWords = [
-        "Смешайте",
-        "Накройте",
-        "вкуснее",
-        "вытащите",
-        "духовку",
-        "овальные",
-        "жидкости",
-        "хозяйкам",
-        "воды",
-        "получилась",
-        "тесто"
-    ];
-//     console.log(boldWords);
-    var a = $('li:contains("тесто")').text().replace('тесто','ХХХХХХХХХХХХХХ');
-undefined
-    	$.each(boldWords,function(i){
-    		
-//         	$("body").html().replace(boldWords[i],'2');
-    	});
+    var term = "хачапури";
+    var locale_HTML = document.body.innerHTML;
+    var termArr =["хачапури","самые","вкусные"];
+    var placeSearch = $('#accordion').html();
+    /*var el = placeSearch.replace(eval("/"+term+"/g"),"#"+term);
+    $('#accordion').html(el);*/
+    var elArr;
+    $(termArr).each(function (i) {
+        var termEl = termArr[i];
+        elArr = placeSearch.replace(eval("/"+termEl+"/g"),"#"+termEl);
+        placeSearch = elArr;
+        console.log(elArr);
+    });
+    $('#accordion').html(elArr);
+
+
+/*
+    var term = "хачапури";
+    var placeSearch = $('body').html();
+    var el = placeSearch.replace(eval("/"+term+"/g"),"#"+term);
+    $('body').html(el);
+*/
+
+
 });
