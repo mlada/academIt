@@ -64,4 +64,22 @@ $(window).on("load", function () {
             $("body").append(status);
         }
     );
+
+   /* /!*Пример с jquery*!/
+    var url = 'https://restcountries.eu/rest/v2/lang/ru';
+    /!*$.get(url,{ },function (countries) {
+        var countLength = Lazy(countries).length();
+        return countLength;
+    });*!/
+    $.get(url)
+        .done(function (countries,textStatus,xhr) {
+            var countLength = Lazy(countries).length();
+            return countLength;
+        })
+        .fail(function (xhr,textStatus,errorThrown){}
+
+        )
+        .always(function (xhr,textStatus){}
+
+        );*/
 });
