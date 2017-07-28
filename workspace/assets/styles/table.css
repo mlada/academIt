@@ -1,7 +1,7 @@
 .bg {
-	transition-property: background-color;
-	transition-duration: .2s;
-}
+	 transition-property: background-color;
+	 transition-duration: .2s;
+ }
 
 .bg:hover {
 	background-color: #eedce4;
