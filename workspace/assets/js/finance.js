@@ -36,41 +36,41 @@ $(window).on("load", function () {
         });*/
 
     /*создание promice*/
-    function asyncEvent() {
-        var dfd = jQuery.Deferred(); // создание промиса
-        setTimeout(function () {
-            dfd.resolve('hurray');
-        },2);
-        setTimeout(function () {
-            dfd.reject('sorry');
-        },2);
-        setTimeout(function working() {
-            if (dfd.state() === "pending"){
-                dfd.notify('working...');
-                setTimeout(working,500);
-            }
-        },1);
-        return dfd.promice();
-    }
-    /*работа promice*/
-    $.when(asyncEvent()).then(
-        function (status) {
-            console.log (status + ", все супер! ");
-        },
-        function (status) {
-            console.log (status + ", что-то пошло не так! ");
-        },
-        function (status) {
-            $("body").append(status);
-        }
-    );
+   //  var url = 'https://restcountries.eu/rest/v2/lang/ru';
+//     function asyncEvent() {
+//         var dfd = jQuery.Deferred(); // создание промиса
+//         setTimeout(function () {
+//             dfd.resolve('hurray');
+//         },2);
+//         setTimeout(function () {
+//             dfd.reject('sorry');
+//         },2);
+//         setTimeout(function working() {
+//             if (dfd.state() === "pending"){
+//                 dfd.notify('working...');
+//                 setTimeout(working,500);
+//             }
+//         },1);
+//         return dfd.promise();
+//     }
+//     $.when(asyncEvent()).then(
+//         function (status) {
+//             console.log (status + ", все супер! ");
+//         },
+//         function (status) {
+//             console.log (status + ", что-то пошло не так! ");
+//         },
+//         function (status) {
+//             $("body").append(status);
+//         }
+//     );
 
-   /* /!*Пример с jquery*!/
+   /*Пример с jquery*/
     var url = 'https://restcountries.eu/rest/v2/lang/ru';
-    /!*$.get(url,{ },function (countries) {
+    $.get(url,{ },function (countries) {
         var countLength = Lazy(countries).length();
         return countLength;
-    });*!/
+    });
     $.get(url)
         .done(function (countries,textStatus,xhr) {
             var countLength = Lazy(countries).length();
@@ -81,5 +81,5 @@ $(window).on("load", function () {
         )
         .always(function (xhr,textStatus){}
 
-        );*/
+        );
 });
