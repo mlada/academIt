@@ -77,9 +77,7 @@ $(window).on("load", function () {
             return countLength;
         })
         .fail(function (xhr,textStatus,errorThrown){}
-
         )
         .always(function (xhr,textStatus){}
-
         );
 });
