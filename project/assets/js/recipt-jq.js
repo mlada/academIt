@@ -1,7 +1,8 @@
 $(window).on("load", function () {
-
-    var products = ["400 мл молока", "550 г муки", "20-25 г сырых дрожжей", "20 г сливочного масла", "2 ст.л. растительного масла", "0,5 ст.л. соли ", "1,5 ст.л. сахара", "500 г адыгейского сыра", "яйца"],
-        includeBlock = $("#ingrdients"),
+    require(["ingredients"], function(ingredients) {
+        alert(ingredients);
+    });
+    var includeBlock = $("#ingrdients"),
         div = '';
 
 
@@ -10,7 +11,6 @@ $(window).on("load", function () {
     });
     includeBlock.append(div);
 
-    console.log(div);
     var term = "хачапури";
     var locale_HTML = document.body.innerHTML;
     var termArr = ["хачапури", "самые", "вкусные"];
