@@ -27,7 +27,6 @@ $(window).on("load", function () {
         .then(function(cur){
             $('body').append('<div class="currency"><div class="euro"><p>Курс евро</p><span>'+cur[1].toFixed(2)+'</span></div>' +
                 '<div class="dollar"><p>Курс доллара</p><span>'+(cur[1]/cur[0]).toFixed(2)+'</span></div></div> ' )
-            console.log (cur);
         })
         .fail(function (xhr, textStatus, errorThrow) {
             console.log('error');
