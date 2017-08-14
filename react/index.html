@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+</head>
+<body>
+<style>
+    #info, form {
+        display: inline-block;
+    }
+</style>
+<form id="my-form" method="GET" action="">
+    Name: <input type="text" name="name"/>
+    <input type="submit" value="Submit"/>
+</form>
+<div id="info">
+
+</div>
+<div id="stat">
+
+</div>
+<script type="text/JavaScript">
+    function getFunc() {
+        var el = document.getElementsByName('name')[0];
+        var strInt = 0;
+        var strLiter = 0;
+        document.getElementById("my-form").addEventListener('submit', function (e) {
+           e.preventDefault();
+
+            if (el.value.search(/\d/) != -1) {
+                time('цифры есть');
+                strInt++;
+            } else {
+                time('цифр нет');
+                strLiter++;
+            };
+            var obj = 'string with numbers - ' + strInt + ' / string with no numbers - ' + strLiter;
+            localStorage.setItem('mykey', obj);
+        });
+        function time(message) {
+            document.getElementById('info').innerText = (message);
+            setTimeout(function () {
+                document.getElementById('info').innerText = '';
+            }, 4000);
+        }
+
+        var timerId = setInterval(function () {
+            document.getElementById('stat').innerText = (localStorage.getItem('mykey'));
+        }, 1000);
+    }
+
+
+    setTimeout(function () {
+        var xhr = new XMLHttpRequest();
+        var params = encodeURIComponent(name);
+        xhr.open("GET", params, false);
+        xhr.send();
+    }, 2000);
+
+    getFunc();
+</script>
+</body>
+</html>
