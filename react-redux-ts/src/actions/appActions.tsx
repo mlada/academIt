@@ -1,5 +1,4 @@
 import * as Redux from 'redux';
-import {CurrencyApiService} from '../services/api/currencyApiService';
 
 import {IGlobalState} from '../models/state/globalState';
 
@@ -7,41 +6,57 @@ export class AppActions {
 
     static init(): (dispatch: Redux.Dispatch<any>, getState: () => IGlobalState, thunkService: any) => any {
         return (dispatch: Redux.Dispatch<any>, getState: () => IGlobalState, thunkService: any) => {
-            const currencyApiService = new CurrencyApiService({ baseURL: 'http://api.fixer.io' });
 
-            const final = () => {
                 dispatch({
                     type: 'App/Init'
+                    , payload : 0
                 });
-            };
 
-            return currencyApiService.getByCode('usd')
-                .then((currencyData) => {
+        };
+    }
+    static increment(): (dispatch: Redux.Dispatch<any>, getState: () => IGlobalState, thunkService: any) => any {
+        return (dispatch: Redux.Dispatch<any>, getState: () => IGlobalState, thunkService: any) => {
+                const max = getState().app.max;
+                const count = getState().app.count;
+                if(count < max){
                     dispatch({
-                        type: 'App/Currency'
-                        , payload: currencyData
+                        type: 'App/Increment'
                     });
-                    final();
-                }).catch(() => {
-                    final();
+                }
+
+        };
+    }
+    static decrement(): (dispatch: Redux.Dispatch<any>, getState: () => IGlobalState, thunkService: any) => any {
+        return (dispatch: Redux.Dispatch<any>, getState: () => IGlobalState, thunkService: any) => {
+            const min = getState().app.min;
+            const count = getState().app.count;
+            if(count > min){
+                dispatch({
+                    type: 'App/Decrement'
+                });
+            }
+
+
+        };
+    }
+    static min(num:number): (dispatch: Redux.Dispatch<any>, getState: () => IGlobalState, thunkService: any) => any {
+        return (dispatch: Redux.Dispatch<any>, getState: () => IGlobalState, thunkService: any) => {
+
+                dispatch({
+                    type: 'App/Min'
+                    , payload : num
                 });
 
         };
     }
-
-    static showSpinner(): (dispatch: Redux.Dispatch<any>, getState: () => IGlobalState, thunkService: any) => any {
+    static max(num:number): (dispatch: Redux.Dispatch<any>, getState: () => IGlobalState, thunkService: any) => any {
         return (dispatch: Redux.Dispatch<any>, getState: () => IGlobalState, thunkService: any) => {
-            return Promise.resolve(dispatch({
-                type: 'App/Spinner/Show'
-            }));
-        };
-    }
 
-    static hideSpinner(): (dispatch: Redux.Dispatch<any>, getState: () => IGlobalState, thunkService: any) => any {
-        return (dispatch: Redux.Dispatch<any>, getState: () => IGlobalState, thunkService: any) => {
-            return Promise.resolve(dispatch({
-                type: 'App/Spinner/Hide'
-            }));
+                dispatch({
+                    type: 'App/Max'
+                    , payload : num
+                });
+
         };
     }
 }

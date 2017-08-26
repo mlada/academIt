@@ -18,9 +18,21 @@ export default class AppReducer {
             case 'App/Spinner/Hide': {
                 return {...state, ... { isLoading: false }};
             }
-            case 'App/Currency': {
-                const currency = action.payload;
-                return {...state, ... { currency: currency }};
+            case 'App/Min': {
+                const min = action.payload;
+                return {...state, ... { min: min }};
+            }
+            case 'App/Max': {
+                const max = action.payload;
+                return {...state, ... { max: max }};
+            }
+            case 'App/Increment': {
+
+                return {...state, ... { count : (state.count + 1) }};
+            }
+            case 'App/Decrement': {
+
+                return {...state, ... { count : (state.count - 1)  }};
             }
             default: {
                 return state;

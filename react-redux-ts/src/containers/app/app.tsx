@@ -1,18 +1,21 @@
 import './app.css';
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { withRouter, Route } from 'react-router-dom';
-import HomePage from '../pages/home/homePage';
+import { withRouter } from 'react-router-dom';
 import {IGlobalState} from '../../models/state/globalState';
 import {AppActions} from '../../actions/appActions';
-const logo = require('./logo.svg');
 
 interface IAppProps{
   isInitializing: boolean;
-  isLoading: boolean;
-  currency: any;
+  min: number;
+  max: number;
+  count: number;
 
   init: () => void;
+  setMin: (num: number) => void;
+  setMax: (num: number) => void;
+    increment: () => void;
+    decrement: () => void;
 }
 
 interface IAppState{
@@ -32,39 +35,41 @@ class App extends React.Component<IAppProps, IAppState> {
     
     if(this.props.isInitializing) { return null;}
 
-    const date = this.props.currency && this.props.currency.date ? this.props.currency.date : ''; 
-    const currencyCode = this.props.currency && this.props.currency.base ? this.props.currency.base : ''; 
-    const rub = this.props.currency && this.props.currency.rates ? this.props.currency.rates.RUB : ''; 
+
     return (
       <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          <ul>
-            <li><span>today: {date}</span></li>
-            <li><span>{currencyCode}: {rub}</span></li>
-          </ul>
-        </p>
-
-        <Route path='/home' component={HomePage}/>
+        <input type="number" name="counter" id="counter" value={this.props.count}/>
+        <button onClick={(e)=>{this.onIncClick(e)}}>+</button>
+        <button onClick={(e)=>{this.onDecClick(e)}}>-</button>
+          {!false && (<div>Not Logins</div>) }
       </div>
     );
   }
+
+  onIncClick(e: any){
+    this.props.increment();
+  }
+    onDecClick(e: any){
+        this.props.decrement();
+    }
 }
 
 const mapStateToProps = (state: IGlobalState, ownProps: any) => {
   return {
     isInitializing: state.app.isInitializing
-    , isLoading: state.app.isLoading
-    , currency: state.app.currency
+      , min : state.app.min
+      , max : state.app.max
+      , count : state.app.count
   }
 }
 
 const mapDispatchToProps = (dispatch: any, ownProps: any) => {
   return {
-    init: () => { dispatch(AppActions.init())  }
+    init: () => { dispatch(AppActions.init())  },
+    setMax: (num: number) => { dispatch(AppActions.max(num))  },
+    setMin: (num: number) => { dispatch(AppActions.min(num))  },
+    increment: () => { dispatch(AppActions.increment())  },
+    decrement: () => { dispatch(AppActions.decrement())  }
   }
 }
 
