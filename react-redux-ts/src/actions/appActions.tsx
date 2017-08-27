@@ -43,11 +43,12 @@ export class AppActions {
         };
     }
 
-    static inputChange():(dispatch:Redux.Dispatch<any>, getState:() => IGlobalState, thunkService:any) => any {
+    static inputChange(val:number):(dispatch:Redux.Dispatch<any>, getState:() => IGlobalState, thunkService:any) => any {
         return (dispatch:Redux.Dispatch<any>, getState:() => IGlobalState, thunkService:any) => {
             
             dispatch({
                 type: 'App/InputChange'
+                , payload: val
             });
 
 

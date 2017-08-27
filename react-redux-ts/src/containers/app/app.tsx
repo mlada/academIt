@@ -19,7 +19,7 @@ interface IAppProps {
     setLogin:(str:string) => void;
     increment:() => void;
     decrement:() => void;
-    inputChange:() => void;
+    inputChange:(val:number) => void;
     onSubmit:() => void;
 }
 
@@ -48,7 +48,7 @@ class App extends React.Component<IAppProps, IAppState> {
                 {!this.props.isLogin && (
                     <div>
                         <div className="input-row">
-                            <input type="number" name="min" id="min" value={this.props.min} onChange={(e)=>{this.onInpChange(e)}}/>
+                            <input type="number" name="min" id="min" value={this.props.min} onChange={(e)=>{this.props.inputChange()}}/>
                             <input type="number" name="max" id="max" value={this.props.max}/>
                         </div>
                         <div className="input-row">
@@ -78,10 +78,6 @@ class App extends React.Component<IAppProps, IAppState> {
                 }
             </div>
         );
-    }
-
-    onSubClick(e:any) {
-        this.props.onSubmit();
     }
 
     onInpChange(e:any) {
@@ -130,8 +126,8 @@ const mapDispatchToProps = (dispatch:any, ownProps:any) => {
         onSubmit: () => {
             dispatch(AppActions.onSubmit())
         },
-        inputChange: () => {
-            dispatch(AppActions.inputChange())
+        inputChange: (val:number) => {
+            dispatch(AppActions.inputChange(val))
         }
 
     }

@@ -39,8 +39,8 @@ export default class AppReducer {
                 return {...state, ... { count : (state.count - 1)  }};
             }
             case 'App/InputChange': {
-
-                return {...state, ... {min: (state.min)} };
+                const val = action.payload;
+                return {...state, ... { min: val }};
             }
             case 'App/Submit': {
 
