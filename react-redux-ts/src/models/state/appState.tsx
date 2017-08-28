@@ -4,6 +4,8 @@ export interface IAppState{
     count:number;
     min:number;
     max:number
+    login:string;
+    password:string;
 
 }
 
@@ -13,6 +15,8 @@ export class AppState implements IAppState{
     count:number;
     min:number;
     max:number;
+    login:string;
+    password:string;
 
 
     constructor() {
@@ -21,6 +25,6 @@ export class AppState implements IAppState{
         this.count = 0;
         this.min = 0;
         this.max = 10;
-        
+
     }
 }

@@ -1,5 +1,4 @@
 import * as Redux from 'redux';
-
 import {IGlobalState} from '../models/state/globalState';
 
 export class AppActions {
@@ -123,14 +122,33 @@ export class AppActions {
         };
     }
 
+    static login(str:string):(dispatch:Redux.Dispatch<any>, getState:() => IGlobalState, thunkService:any) => any {
+        return (dispatch:Redux.Dispatch<any>, getState:() => IGlobalState, thunkService:any) => {
+            dispatch({
+                type: 'App/Login'
+                , payload: str
+            });
+        };
+    }
+    static password(str:string):(dispatch:Redux.Dispatch<any>, getState:() => IGlobalState, thunkService:any) => any {
+        return (dispatch:Redux.Dispatch<any>, getState:() => IGlobalState, thunkService:any) => {
+            dispatch({
+                type: 'App/Password'
+                , payload: str
+            });
+        };
+    }
+
     static isLogin(e:any):(dispatch:Redux.Dispatch<any>, getState:() => IGlobalState, thunkService:any) => any {
         return (dispatch:Redux.Dispatch<any>, getState:() => IGlobalState, thunkService:any) => {
             e.preventDefault();
-            console.log(getState().app.isLogin);
-            dispatch({
-                type: 'App/Login'
-            });
-            console.log(getState().app.isLogin);
+            const login = getState().app.login;
+            const password = getState().app.password;
+            if (login !== '' && password !== '') {
+                dispatch({
+                    type: 'App/Submit'
+                });
+            }
         };
     }
 

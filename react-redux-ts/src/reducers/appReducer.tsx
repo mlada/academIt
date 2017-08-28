@@ -31,7 +31,12 @@ export default class AppReducer {
                 return {...state, ... { count: count }};
             }
             case 'App/Login': {
-                return {...state, ... { isLogin: true }};
+                const login = action.payload;
+                return {...state, login : login};
+            }
+            case 'App/Password': {
+                const password = action.payload;
+                return {...state, password : password};
             }
             case 'App/Increment': {
 
@@ -42,8 +47,7 @@ export default class AppReducer {
                 return {...state, ... { count : (state.count - 1)  }};
             }
             case 'App/Submit': {
-
-                return {...state, ... { isLogin: true  }};
+                return {...state, isLogin: true,  password : '', login:''};
             }
             default: {
                 return state;
