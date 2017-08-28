@@ -11,15 +11,14 @@ interface IAppProps {
     min:number;
     max:number;
     count:number;
-    login:string;
 
     init:() => void;
     setMin:(num:number) => void;
     setMax:(num:number) => void;
-    setLogin:(str:string) => void;
+    setCount:(num:number) => void;
+    changeLogin:(e:any) => void;
     increment:() => void;
     decrement:() => void;
-    inputChange:(val:number) => void;
     onSubmit:() => void;
 }
 
@@ -45,33 +44,33 @@ class App extends React.Component<IAppProps, IAppState> {
 
         return (
             <div className="App">
-                {!this.props.isLogin && (
+                {(this.props.isLogin) && (
                     <div>
                         <div className="input-row">
-                            <input type="number" name="min" id="min" value={this.props.min} onChange={(e)=>{this.props.inputChange()}}/>
-                            <input type="number" name="max" id="max" value={this.props.max}/>
+                            <input type="number" name="min" id="min" value={this.props.min} onChange={(e)=>{this.props.setMin(+e.target.value)}}/>
+                            <input type="number" name="max" id="max" value={this.props.max} onChange={(e)=>{this.props.setMax(+e.target.value)}}/>
                         </div>
                         <div className="input-row">
                             <button id="dec" onClick={(e)=>{this.onDecClick(e)}}>-</button>
-                            <input type="number" name="count" id="count" value={this.props.count}/>
+                            <input type="number" name="count" id="count" value={this.props.count} onChange={(e)=>{this.props.setCount(+e.target.value)}}/>
                             <button id="inc" onClick={(e)=>{this.onIncClick(e)}}>+</button>
                         </div>
                     </div>)
                 }
-                {this.props.isLogin && (
+                {(!this.props.isLogin) && (
                     <div className="popup-login">
                         <form id="client-login">
                             <div className="input-column">
                                 <label>Логин</label>
                                 <input id="login" type="text" placeholder="Логин" name="loginVal"
-                                       value={this.props.login}/>
+                                       value=""/>
                             </div>
                             <div className="input-column">
                                 <label >Пароль</label>
                                 <input id="password" type="text" placeholder="Пароль" name="passwordVal"/>
                             </div>
                             <div className="input-column">
-                                <button onClick={(e)=>{this.onSubClick(e)}}>Войти</button>
+                                <a onClick={(e)=>{this.props.changeLogin(e)}}>Войти</a>
                             </div>
                         </form>
                     </div>)
@@ -80,9 +79,7 @@ class App extends React.Component<IAppProps, IAppState> {
         );
     }
 
-    onInpChange(e:any) {
-        this.props.inputChange();
-    }
+
     onIncClick(e:any) {
         this.props.increment();
     }
@@ -99,7 +96,6 @@ const mapStateToProps = (state:IGlobalState, ownProps:any) => {
         , min: state.app.min
         , max: state.app.max
         , count: state.app.count
-        , login: state.app.login
     }
 }
 
@@ -114,8 +110,11 @@ const mapDispatchToProps = (dispatch:any, ownProps:any) => {
         setMin: (num:number) => {
             dispatch(AppActions.min(num))
         },
-        setLogin: (str:string) => {
-            dispatch(AppActions.login(str))
+        setCount: (num:number) => {
+            dispatch(AppActions.count(num))
+        },
+        changeLogin: (e:any) => {
+            dispatch(AppActions.isLogin(e))
         },
         increment: () => {
             dispatch(AppActions.increment())
@@ -125,9 +124,6 @@ const mapDispatchToProps = (dispatch:any, ownProps:any) => {
         },
         onSubmit: () => {
             dispatch(AppActions.onSubmit())
-        },
-        inputChange: (val:number) => {
-            dispatch(AppActions.inputChange(val))
         }
 
     }

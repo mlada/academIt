@@ -7,7 +7,6 @@ export class AppActions {
     static init():(dispatch:Redux.Dispatch<any>, getState:() => IGlobalState, thunkService:any) => any {
         return (dispatch:Redux.Dispatch<any>, getState:() => IGlobalState, thunkService:any) => {
             const count = getState().app.count;
-            console.log(count);
             dispatch({
                 type: 'App/Init'
                 , payload: count
@@ -43,18 +42,6 @@ export class AppActions {
         };
     }
 
-    static inputChange(val:number):(dispatch:Redux.Dispatch<any>, getState:() => IGlobalState, thunkService:any) => any {
-        return (dispatch:Redux.Dispatch<any>, getState:() => IGlobalState, thunkService:any) => {
-            
-            dispatch({
-                type: 'App/InputChange'
-                , payload: val
-            });
-
-
-        };
-    }
-
     static onSubmit():(dispatch:Redux.Dispatch<any>, getState:() => IGlobalState, thunkService:any) => any {
         return (dispatch:Redux.Dispatch<any>, getState:() => IGlobalState, thunkService:any) => {
 
@@ -68,33 +55,83 @@ export class AppActions {
 
     static min(num:number):(dispatch:Redux.Dispatch<any>, getState:() => IGlobalState, thunkService:any) => any {
         return (dispatch:Redux.Dispatch<any>, getState:() => IGlobalState, thunkService:any) => {
-
-            dispatch({
-                type: 'App/Min'
-                , payload: num
-            });
+            const max = getState().app.max;
+            const count = getState().app.count;
+            if (num > max) {
+                dispatch({
+                    type: 'App/Min'
+                    , payload: +max - 1
+                });
+            } else if (count < num) {
+                dispatch({
+                    type: 'App/Min'
+                    , payload: +count - 1
+                });
+            } else {
+                dispatch({
+                    type: 'App/Min'
+                    , payload: num
+                });
+            }
 
         };
     }
 
     static max(num:number):(dispatch:Redux.Dispatch<any>, getState:() => IGlobalState, thunkService:any) => any {
         return (dispatch:Redux.Dispatch<any>, getState:() => IGlobalState, thunkService:any) => {
-
-            dispatch({
-                type: 'App/Max'
-                , payload: num
-            });
-
+            const min = getState().app.min;
+            const count = getState().app.count;
+            if (num < min) {
+                dispatch({
+                    type: 'App/Max'
+                    , payload: +min + 1
+                });
+            } else if (count > num) {
+                dispatch({
+                    type: 'App/Max'
+                    , payload: +count + 1
+                });
+            } else {
+                dispatch({
+                    type: 'App/Max'
+                    , payload: num
+                });
+            }
         };
     }
 
-    static login(str:string):(dispatch:Redux.Dispatch<any>, getState:() => IGlobalState, thunkService:any) => any {
+    static count(num:number):(dispatch:Redux.Dispatch<any>, getState:() => IGlobalState, thunkService:any) => any {
         return (dispatch:Redux.Dispatch<any>, getState:() => IGlobalState, thunkService:any) => {
+            const min = getState().app.min;
+            const max = getState().app.max;
+            if (num < min) {
+                dispatch({
+                    type: 'App/Count'
+                    , payload: +min + 1
+                });
+            } else if (num > max) {
+                dispatch({
+                    type: 'App/Count'
+                    , payload: +max - 1
+                });
+            } else {
+                dispatch({
+                    type: 'App/Count'
+                    , payload: num
+                });
+            }
+        };
+    }
+
+    static isLogin(e:any):(dispatch:Redux.Dispatch<any>, getState:() => IGlobalState, thunkService:any) => any {
+        return (dispatch:Redux.Dispatch<any>, getState:() => IGlobalState, thunkService:any) => {
+            e.preventDefault();
+            console.log(getState().app.isLogin)
             dispatch({
                 type: 'App/Login'
-                , payload: str
             });
-
         };
     }
+
+
 }

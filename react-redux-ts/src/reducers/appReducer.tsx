@@ -26,9 +26,12 @@ export default class AppReducer {
                 const max = action.payload;
                 return {...state, ... { max: max }};
             }
+            case 'App/Count': {
+                const count = action.payload;
+                return {...state, ... { count: count }};
+            }
             case 'App/Login': {
-                const login = action.payload;
-                return {...state, ... { login: login }};
+                return {...state, ... { isLogin: true }};
             }
             case 'App/Increment': {
 
@@ -37,10 +40,6 @@ export default class AppReducer {
             case 'App/Decrement': {
 
                 return {...state, ... { count : (state.count - 1)  }};
-            }
-            case 'App/InputChange': {
-                const val = action.payload;
-                return {...state, ... { min: val }};
             }
             case 'App/Submit': {
 

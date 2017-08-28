@@ -5,7 +5,6 @@ export interface IAppState{
     min:number;
     max:number
 
-    login:string;
 }
 
 export class AppState implements IAppState{
@@ -15,7 +14,6 @@ export class AppState implements IAppState{
     min:number;
     max:number;
 
-    login:string;
 
     constructor() {
         this.isInitializing = false; // first loading
@@ -24,6 +22,5 @@ export class AppState implements IAppState{
         this.min = 0;
         this.max = 10;
         
-        this.login = "Введите ваш логин";
     }
 }
