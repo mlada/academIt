@@ -126,10 +126,11 @@ export class AppActions {
     static isLogin(e:any):(dispatch:Redux.Dispatch<any>, getState:() => IGlobalState, thunkService:any) => any {
         return (dispatch:Redux.Dispatch<any>, getState:() => IGlobalState, thunkService:any) => {
             e.preventDefault();
-            console.log(getState().app.isLogin)
+            console.log(getState().app.isLogin);
             dispatch({
                 type: 'App/Login'
             });
+            console.log(getState().app.isLogin);
         };
     }
 

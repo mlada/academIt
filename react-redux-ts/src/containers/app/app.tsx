@@ -70,7 +70,7 @@ class App extends React.Component<IAppProps, IAppState> {
                                 <input id="password" type="text" placeholder="Пароль" name="passwordVal"/>
                             </div>
                             <div className="input-column">
-                                <a onClick={(e)=>{this.props.changeLogin(e)}}>Войти</a>
+                                <a className="btn-submit" onClick={(e)=>{this.props.changeLogin(e)}}>Войти</a>
                             </div>
                         </form>
                     </div>)

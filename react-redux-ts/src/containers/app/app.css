@@ -138,7 +138,7 @@ input::-webkit-input-placeholder{
   color: #888;
 }
 
-input[type="submit"]{
+.btn-submit{
   align-content: center;
   align-items: center;
   justify-content: center;
@@ -153,7 +153,7 @@ input[type="submit"]{
   -moz-box-shadow: 0px 2px 2px #eee;
   box-shadow: 0px 2px 2px #eee;
 }
-input[type="submit"]:hover{
+.btn-submit:hover{
   background-color: #acdba7;
 
 }
