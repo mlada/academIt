@@ -4,7 +4,8 @@ export default class AppReducer {
     static handle(state: any = new AppState, action: any): IAppState {
         switch (action.type) {
             case 'App/Init': {
-                return {...state, isLoading: false, isInitializing: false};
+                const visitPage = action.payload;
+                return {...state, isLoading: false, isInitializing: false, visitPage : visitPage + 1};
             }
             case 'App/Authorize': {
                 return {...state, isAuthorized: true };
@@ -46,8 +47,12 @@ export default class AppReducer {
 
                 return {...state, ... { count : (state.count - 1)  }};
             }
-            case 'App/Submit': {
+            case 'App/ChangeLogin': {
                 return {...state, isLogin: true,  password : '', login:''};
+            }
+            case 'App/CountVisits': {
+                const visitPage = action.payload;
+                return {...state, visitPage : visitPage + 1};
             }
             default: {
                 return state;

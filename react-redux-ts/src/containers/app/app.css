@@ -163,3 +163,8 @@ input::-webkit-input-placeholder{
 #hide{
   top:-1000px;
 }
+.counter{
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+}
