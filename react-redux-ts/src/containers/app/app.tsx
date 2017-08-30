@@ -11,7 +11,7 @@ interface IAppProps {
     min:number;
     max:number;
     count:number;
-    visitPage:number;
+    visitPage:any;
     login:string;
     password:string;
 

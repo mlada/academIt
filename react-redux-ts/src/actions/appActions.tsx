@@ -1,17 +1,17 @@
 import * as Redux from 'redux';
 import {IGlobalState} from '../models/state/globalState';
-import {Cookies} from 'js-cookie';
+import Cookies = require("js-cookie");
 
 export class AppActions {
 
     static init():(dispatch:Redux.Dispatch<any>, getState:() => IGlobalState, thunkService:any) => any {
         return (dispatch:Redux.Dispatch<any>, getState:() => IGlobalState, thunkService:any) => {
-            // const count = getState().app.count;
-            const visitPage = getState().app.visitPage;
-            Cookies.set('name', visitPage, { expires: 1 });
+            const count = getState().app.count;
+            // const visitPage = getState().app.visitPage;
+            // Cookies.set('name', visitPage, { expires: 1 });
             dispatch({
                 type: 'App/Init'
-                , payload: visitPage
+                , payload: count
             });
 
         };
@@ -158,8 +158,11 @@ export class AppActions {
 
     static countVisits():(dispatch:Redux.Dispatch<any>, getState:() => IGlobalState, thunkService:any) => any {
         return (dispatch:Redux.Dispatch<any>, getState:() => IGlobalState, thunkService:any) => {
+            var visitPage = getState().app.visitPage;
+            Cookies.set('name', visitPage++, { expires: 1 });
             dispatch({
                 type: 'App/CountVisits'
+                ,payload: visitPage
             });
         };
     }

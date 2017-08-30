@@ -2,7 +2,7 @@ export interface IAppState{
     isInitializing: boolean; // first loading
     isLogin: boolean;
     count:number;
-    visitPage:number;
+    visitPage:any;
     min:number;
     max:number
     login:string;
@@ -14,7 +14,7 @@ export class AppState implements IAppState{
     isInitializing: boolean; // first loading
     isLogin: boolean;
     count:number;
-    visitPage:number;
+    visitPage:any;
     min:number;
     max:number;
     login:string;
