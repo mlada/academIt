@@ -1,14 +1,21 @@
 import * as Redux from 'redux';
 import {IGlobalState} from '../models/state/globalState';
-import Cookies = require("js-cookie");
+import { getCookie, setCookie } from 'redux-cookie';
 
 export class AppActions {
 
     static init():(dispatch:Redux.Dispatch<any>, getState:() => IGlobalState, thunkService:any) => any {
         return (dispatch:Redux.Dispatch<any>, getState:() => IGlobalState, thunkService:any) => {
             const count = getState().app.count;
-            // const visitPage = getState().app.visitPage;
-            // Cookies.set('name', visitPage, { expires: 1 });
+            // const visitPage = getCookie('visitCount');
+            setCookie('visitCount','1');
+
+            // if (visitPage = ''){
+            //     // setCookie('visitCount','1');
+            //     console.log(visitPage)
+            // } else {
+            //
+            // }
             dispatch({
                 type: 'App/Init'
                 , payload: count
@@ -21,6 +28,7 @@ export class AppActions {
         return (dispatch:Redux.Dispatch<any>, getState:() => IGlobalState, thunkService:any) => {
             const max = getState().app.max;
             const count = getState().app.count;
+            setCookie('count',count);
             if (count < max) {
                 dispatch({
                     type: 'App/Increment'
@@ -34,6 +42,7 @@ export class AppActions {
         return (dispatch:Redux.Dispatch<any>, getState:() => IGlobalState, thunkService:any) => {
             const min = getState().app.min;
             const count = getState().app.count;
+            setCookie('count',count);
             if (count > min) {
                 dispatch({
                     type: 'App/Decrement'
@@ -147,22 +156,25 @@ export class AppActions {
             const login = getState().app.login;
             const password = getState().app.password;
             const state = getState().app.isLogin;
+            const s = getCookie('visitCount');
+
             if (login !== '' && password !== '') {
                 dispatch({
                     type: 'App/ChangeLogin'
                 });
-                console.log(login,password,state)
+                console.log(login,password,state,s)
             }
         };
     }
 
     static countVisits():(dispatch:Redux.Dispatch<any>, getState:() => IGlobalState, thunkService:any) => any {
         return (dispatch:Redux.Dispatch<any>, getState:() => IGlobalState, thunkService:any) => {
-            var visitPage = getState().app.visitPage;
-            Cookies.set('name', visitPage++, { expires: 1 });
+            // const visitPage = getState().app.visitPage;
+
+            // setCookie('visitCount', visitPage);
             dispatch({
                 type: 'App/CountVisits'
-                ,payload: visitPage
+                // ,payload: visitPage
             });
         };
     }

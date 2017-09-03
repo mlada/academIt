@@ -109,7 +109,7 @@ class App extends React.Component<IAppProps, IAppState> {
 const mapStateToProps = (state:IGlobalState, ownProps:any) => {
     return {
         isInitializing: state.app.isInitializing
-        , isLogin: state.app.isInitializing
+        , isLogin: state.app.isLogin
         , min: state.app.min
         , max: state.app.max
         , count: state.app.count

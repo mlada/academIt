@@ -27,7 +27,6 @@ export class AppState implements IAppState{
         this.count = 0;
         this.min = 0;
         this.max = 10;
-        this.visitPage = 1;
 
     }
 }
