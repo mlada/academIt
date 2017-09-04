@@ -93,6 +93,7 @@ class App extends React.Component<IAppProps, IAppState> {
             <div className="App">
                 <span className="counter">Количество посещений сегодня {this.props.visitPage} </span>
                 {optionalElement}
+
             </div>
         );
 
