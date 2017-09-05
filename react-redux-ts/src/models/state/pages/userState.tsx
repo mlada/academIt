@@ -1,7 +1,10 @@
 export interface IUserState {
     phone:number;
-    phoneValidation:any;
+    phoneValidationText:any;
+    phoneValidationState:any;
     password:any;
+    passwordValidationText:any;
+    passwordValidationState:any;
     fullName:string;
     birthDate:any;
     email:string;
@@ -10,13 +13,15 @@ export interface IUserState {
     registrationAdress:string;
     passport:number;
 
-    validationState:string;
 
 }
 export class UserState implements IUserState{
     phone:number;
-    phoneValidation:any;
+    phoneValidationText:any;
+    phoneValidationState:any;
     password:any;
+    passwordValidationText:any;
+    passwordValidationState:any;
     fullName:string;
     birthDate:any;
     email:string;
@@ -28,12 +33,10 @@ export class UserState implements IUserState{
     validationState:string;
 
     constructor() {
-        this.phoneValidation = {
-            typeRule: "номер телефона без 8"
-            , size: "номер состоит из 10 знаков"
-            , onlyNum : "только цифры"
-        };
-        this.validationState = 'input-error_normal';
+        this.phoneValidationText = [
+        ];
+        this.passwordValidationText = [
+        ];
 
     }
 }

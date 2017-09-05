@@ -8,8 +8,10 @@ import {LoginActions} from '../../../actions/loginActions';
 
 interface ILoginProps {
     phone: number;
-    phoneValidation: any;
+    phoneValidationText: any;
+    phoneValidationState: any;
     password: any;
+    passwordValidationText: any;
     fullName: string;
     birthDate: any;
     email: string;
@@ -18,10 +20,10 @@ interface ILoginProps {
     registrationAdress: string;
     passport: number;
 
-    validationState:string;
 
     init: () => void;
-    setInput: () => void;
+    setInput: (e:any) => void;
+    onButtonClick: () => void;
 
 }
 
@@ -44,49 +46,34 @@ class LoginPage extends React.Component<ILoginProps, IUserState> {
                     <form>
                         <div className="registration-field">
                             <div className="registration-field-input">
-                                <input type="text" name="phone" id="phone" max="8" value={this.props.phone}
-                                       onChange={(e)=>{this.props.setInput()}}/>
-                                <label htmlFor="phone">Введите ваш номер телефона</label>
+                                <input id="phone" value={this.props.phone} onChange={(e)=>{this.props.setInput(e)}}/>
+                                <label htmlFor="phone">Введите ваш номер телефона без 8</label>
                             </div>
                             <div className="registration-field-error">
-                                { this.props.phoneValidation.map((rule:any)=>
-                                    <span className={ "input-error " + ( this.props.validationState || "") }>
+                                { this.props.phoneValidationText.map((rule:any)=>
+                                    <span className={ "input-error " + ( this.props.phoneValidationState || "") }>
                                         {rule}
                                     </span>
                                     )
                                 }
-                                {/*<span className={ "input-error " + ( this.props.validationState || "") }>
-                                    {this.props.phoneValidation.typeRule}
-                                </span>
-                                <span className={ "input-error " + ( this.props.validationState || "") }>
-                                    {this.props.phoneValidation.size}
-                                </span>
-                                <span className={ "input-error " + ( this.props.validationState || "") }>
-                                    {this.props.phoneValidation.onlyNum}
-                                </span>*/}
-
                             </div>
                         </div>
                         <div className="registration-field">
                             <div className="registration-field-input">
-                                <input type="password" name="password" id="password" min="4" max="8" value={this.props.password}/>
-                                <label htmlFor="password">Введите ваш пароль</label>
+                                <input id="password" value={this.props.password} onChange={(e)=>{this.props.setInput(e)}}/>
+                                <label htmlFor="password">Введите ваш номер телефона</label>
                             </div>
                             <div className="registration-field-error">
-
-                                <span className="input-error input-error_normal">
-                                  номер без 8
-                                </span>
-                                <span className="input-error input-error_error">
-                                  только цифры
-                                </span>
-                                <span className="input-error input-error_checked">
-                                  номер состоит из 10 символов
-                                </span>
+                                { this.props.passwordValidationText.map((rule:any)=>
+                                    <span className={ "input-error " + ( this.props.phoneValidationState || "") }>
+                                        {rule}
+                                    </span>
+                                    )
+                                }
                             </div>
                         </div>
                         <div className="registration-button_submit">
-                            <button type="submit">Войти</button>
+                            <button type="submit" onClick={(e)=>this.props.onButtonClick()}>Войти</button>
                         </div>
                     </form>
                 </div>
@@ -100,8 +87,10 @@ class LoginPage extends React.Component<ILoginProps, IUserState> {
 const mapStateToProps = (state: IGlobalState, ownProps: any) => {
     return {
         phone: state.user.phone
-        , phoneValidation: state.user.phoneValidation
+        , phoneValidationText: state.user.phoneValidationText
+        , phoneValidationState: state.user.phoneValidationState
         , password: state.user.password
+        , passwordValidationText: state.user.passwordValidationText
         , fullName: state.user.fullName
         , birthDate: state.user.birthDate
         , email: state.user.email
@@ -109,7 +98,6 @@ const mapStateToProps = (state: IGlobalState, ownProps: any) => {
         , livingAdress: state.user.livingAdress
         , registrationAdress: state.user.registrationAdress
         , passport: state.user.passport
-        , validationState: state.user.validationState
     }
 }
 
@@ -118,8 +106,11 @@ const mapDispatchToProps = (dispatch: any, ownProps: any) => {
         init: () => {
             dispatch(LoginActions.init())
         },
-        setInput: () => {
-            dispatch(LoginActions.setInput())
+        setInput: (e:any) => {
+            dispatch(LoginActions.setInput(e))
+        },
+        onButtonClick: () => {
+            dispatch(LoginActions.onButtonClick())
         }
     }
 }

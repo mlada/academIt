@@ -1,5 +1,6 @@
 import * as Redux from 'redux';
 import {IGlobalState} from '../models/state/globalState';
+// import { getCookie, setCookie } from 'redux-cookie';
 
 export class LoginActions {
 
@@ -11,24 +12,35 @@ export class LoginActions {
 
         };
     }
-    static setInput():(dispatch:Redux.Dispatch<any>, getState:() => IGlobalState, thunkService:any) => any {
+    static setInput(e:any):(dispatch:Redux.Dispatch<any>, getState:() => IGlobalState, thunkService:any) => any {
         return (dispatch:Redux.Dispatch<any>, getState:() => IGlobalState, thunkService:any) => {
-            const phone = getState().user.phone;
-            const password = getState().user.password;
-            dispatch({
-                type: 'Login/SetInput'
-                , payload: {phone,password}
-            });
+            const input = e.target;
+            console.log(input);
+            switch (input.id) {
+                case 'phone' :{
+                    dispatch({
+                        type: 'Login/SetPhone'
+                        , payload: input
+                    });
+                }
+                case 'password' :{
+                    dispatch({
+                        type: 'Login/SetPassword'
+                        , payload: input
+                    });
+                }
+            }
+
+
 
         };
     }
-    static showValidation():(dispatch:Redux.Dispatch<any>, getState:() => IGlobalState, thunkService:any) => any {
+    static onButtonClick():(dispatch:Redux.Dispatch<any>, getState:() => IGlobalState, thunkService:any) => any {
         return (dispatch:Redux.Dispatch<any>, getState:() => IGlobalState, thunkService:any) => {
-            const phone = getState().user.phone;
-            // const valid = getState().validation.phone;
-            console.log(phone);
+           // const cookie = getCookie("phone");
+           //  console.log(cookie);
             dispatch({
-                type: 'Login/ShowValidation'
+                type: 'Login/OnButtonClick'
             });
 
         };
