@@ -1,6 +1,6 @@
 import * as Redux from 'redux';
 import {IGlobalState} from '../models/state/globalState';
-import { getCookie, setCookie } from 'redux-cookie';
+// import { getCookie, setCookie } from 'redux-cookie';
 
 export class AppActions {
 
@@ -8,7 +8,7 @@ export class AppActions {
         return (dispatch:Redux.Dispatch<any>, getState:() => IGlobalState, thunkService:any) => {
             const count = getState().app.count;
             // const visitPage = getCookie('visitCount');
-            setCookie('visitCount','1');
+            // setCookie('visitCount','1');
 
             // if (visitPage = ''){
             //     // setCookie('visitCount','1');
@@ -28,7 +28,7 @@ export class AppActions {
         return (dispatch:Redux.Dispatch<any>, getState:() => IGlobalState, thunkService:any) => {
             const max = getState().app.max;
             const count = getState().app.count;
-            setCookie('count',count);
+            // setCookie('count',count)
             if (count < max) {
                 dispatch({
                     type: 'App/Increment'
@@ -42,7 +42,6 @@ export class AppActions {
         return (dispatch:Redux.Dispatch<any>, getState:() => IGlobalState, thunkService:any) => {
             const min = getState().app.min;
             const count = getState().app.count;
-            setCookie('count',count);
             if (count > min) {
                 dispatch({
                     type: 'App/Decrement'
@@ -156,13 +155,13 @@ export class AppActions {
             const login = getState().app.login;
             const password = getState().app.password;
             const state = getState().app.isLogin;
-            const s = getCookie('visitCount');
+            // const s = getCookie('visitCount');
 
             if (login !== '' && password !== '') {
                 dispatch({
                     type: 'App/ChangeLogin'
                 });
-                console.log(login,password,state,s)
+                console.log(login,password,state)
             }
         };
     }

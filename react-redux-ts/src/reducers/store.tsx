@@ -13,7 +13,7 @@ const enhancer = compose(
 
 const rootReducer =  combineReducers<IGlobalState>({
     app: AppReducer.handle
-    , login: LoginReducer.handle
+    , user: LoginReducer.handle
 
   });
 // Add the reducer to your store on the `routing` key
