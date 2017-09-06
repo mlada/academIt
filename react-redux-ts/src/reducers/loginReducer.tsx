@@ -29,6 +29,11 @@ export default class LoginReducer {
                 }
                 return {...state,password:input,passwordValidationState:styl,passwordValidationText:validationText};
             }
+            case 'Login/GoStepTwo': {
+                // const phone = action.payload.phone;
+                // console.log(phone)
+                return {...state};
+            }
             default: {
                 return state;
             }

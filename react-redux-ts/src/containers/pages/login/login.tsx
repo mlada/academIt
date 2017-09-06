@@ -5,6 +5,7 @@ import {withRouter} from 'react-router-dom';
 import {IGlobalState} from '../../../models/state/globalState';
 import {IUserState} from '../../../models/state/pages/userState';
 import {LoginActions} from '../../../actions/loginActions';
+import ContactForm from '../../form/formPageOne';
 
 interface ILoginProps {
     phone: number;
@@ -24,6 +25,7 @@ interface ILoginProps {
     init: () => void;
     setInput: (e:any) => void;
     onButtonClick: () => void;
+    goStepTwo: (e:any) => void;
 
 }
 
@@ -36,28 +38,14 @@ class LoginPage extends React.Component<ILoginProps, IUserState> {
 
     componentWillMount() {
         this.props.init();
+
     }
 
     render() {
-
         return (
             <div className="LoginPage">
                 <div className="registration-form">
                     <form>
-                        <div className="registration-field">
-                            <div className="registration-field-input">
-                                <input id="phone" value={this.props.phone} onChange={(e)=>{this.props.setInput(e)}}/>
-                                <label htmlFor="phone">Введите ваш номер телефона без 8</label>
-                            </div>
-                            <div className="registration-field-error">
-                                { this.props.phoneValidationText.map((rule:any)=>
-                                    <span className={ "input-error " + ( this.props.phoneValidationState || "") }>
-                                        {rule}
-                                    </span>
-                                    )
-                                }
-                            </div>
-                        </div>
                         <div className="registration-field">
                             <div className="registration-field-input">
                                 <input id="password" value={this.props.password} onChange={(e)=>{this.props.setInput(e)}}/>
@@ -72,14 +60,16 @@ class LoginPage extends React.Component<ILoginProps, IUserState> {
                                 }
                             </div>
                         </div>
-                        <div className="registration-button_submit">
-                            <button type="submit" onClick={(e)=>this.props.onButtonClick()}>Войти</button>
-                        </div>
                     </form>
+                    <ContactForm onSubmit={this.submit} />
                 </div>
             </div>
+
         );
 
+    }
+    submit(values:any) {
+        console.log(values);
     }
 
 }
@@ -110,6 +100,9 @@ const mapDispatchToProps = (dispatch: any, ownProps: any) => {
             dispatch(LoginActions.setInput(e))
         },
         onButtonClick: () => {
+            dispatch(LoginActions.onButtonClick())
+        },
+        goStepTwo: (e:any) => {
             dispatch(LoginActions.onButtonClick())
         }
     }

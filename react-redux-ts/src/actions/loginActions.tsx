@@ -45,5 +45,15 @@ export class LoginActions {
 
         };
     }
+    static goStepTwo(userInfo:any):(dispatch:Redux.Dispatch<any>, getState:() => IGlobalState, thunkService:any) => any {
+        return (dispatch:Redux.Dispatch<any>, getState:() => IGlobalState, thunkService:any) => {
+           console.log(userInfo.name);
+            dispatch({
+                type: 'Login/GoStepTwo'
+                // , payload:value
+            });
+
+        };
+    }
 
 }
