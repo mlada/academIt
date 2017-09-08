@@ -2,35 +2,31 @@ import * as React from 'react';
 import { Field, reduxForm } from 'redux-form'
 import './form.css';
 
-const validate:any = (values:any) => {
-    const errors:any = {};
-    if (!values.phone) {
-        errors.phone = 'Обязательное поле'
-    }else if (!/^[0-9]{5,10}$/i.test(values.phone)) {
-        errors.phone = 'Телефон без 8, 10 знаков'
-    }else if (isNaN(Number(values.phone))) {
-        errors.phone = 'Только цифры'
-    }
-    return errors
-}
-const warn:any = (values:any) => {
-    const warnings:any = {};
-    if (values.phone) {
-        warnings.phone = 'done'
-    }
-    return warnings
-}
+/*validate*/
+const required:any = (value:boolean) => (value ? undefined : 'Обязательное поле');
+export const phoneNumber:any = (value:any) =>
+    value && !/^(0|[1-9][0-9]{9})$/i.test(value)
+        ? 'Неверный формат, должен содержать 10 знаков'
+        : undefined;
+
+/*warn*/
+// const alphaNumeric:any = (value:any) =>
+//     value && /[^a-zA-Z0-9 ]/i.test(value)
+//         ? 'Only alphanumeric characters'
+//         : undefined;
+
 const renderField:any = ({
     input,
     name,
     type,
+    placeholder,
     meta: { touched, error, warning }
     }:any) =>
         <div className="registration-field">
             <div className="registration-field-input">
-                <input {...input} id={name} type={type} />
+                <input {...input} id={name} type={type} placeholder={placeholder}/>
                 <label htmlFor={name}>
-                    {name}
+                    {placeholder}
                 </label>
             </div>
             <div className="registration-field-error">
@@ -48,15 +44,18 @@ const renderField:any = ({
         </div>
 
 
-let ContactForm:any = (props:any) => {
-
+let FormStepOne:any = (props:any) => {
     const { handleSubmit, pristine, submitting } = props;
+    // const submit:any =(values:any) => console.log(values);
     return (
         <form onSubmit={ handleSubmit }>
             <Field
                 name="phone"
                 type="text"
                 component={renderField}
+                placeholder="Номер телефона"
+                validate={[required, phoneNumber]}
+
             />
             <div className="registration-button_submit">
                 <button type="submit" disabled={pristine || submitting}>Далее</button>
@@ -65,11 +64,9 @@ let ContactForm:any = (props:any) => {
     )
 }
 
-ContactForm = reduxForm({
+FormStepOne = reduxForm({
     form: 'contact'
-    , validate
-    , warn
+})(FormStepOne)
 
-})(ContactForm)
 
-export default ContactForm;
+export default FormStepOne;

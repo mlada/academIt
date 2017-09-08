@@ -1,10 +1,6 @@
 export interface IUserState {
     phone:number;
-    phoneValidationText:any;
-    phoneValidationState:any;
     password:any;
-    passwordValidationText:any;
-    passwordValidationState:any;
     fullName:string;
     birthDate:any;
     email:string;
@@ -12,7 +8,7 @@ export interface IUserState {
     livingAdress:string;
     registrationAdress:string;
     passport:number;
-
+    shownPage:number;
 
 }
 export class UserState implements IUserState{
@@ -29,6 +25,7 @@ export class UserState implements IUserState{
     livingAdress:string;
     registrationAdress:string;
     passport:number;
+    shownPage:number;
 
     validationState:string;
 
@@ -37,6 +34,7 @@ export class UserState implements IUserState{
         ];
         this.passwordValidationText = [
         ];
+        this.shownPage = 1;
 
     }
 }

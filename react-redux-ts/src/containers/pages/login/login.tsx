@@ -5,14 +5,13 @@ import {withRouter} from 'react-router-dom';
 import {IGlobalState} from '../../../models/state/globalState';
 import {IUserState} from '../../../models/state/pages/userState';
 import {LoginActions} from '../../../actions/loginActions';
-import ContactForm from '../../form/formPageOne';
-
+import FormStepOne from '../../form/formPageOne';
+import FormStepTwo from "../../form/formPageTwo";
+// import {render} from "react-dom";
+const sleep = (ms:number) => new Promise(resolve => setTimeout(resolve, ms));
 interface ILoginProps {
     phone: number;
-    phoneValidationText: any;
-    phoneValidationState: any;
     password: any;
-    passwordValidationText: any;
     fullName: string;
     birthDate: any;
     email: string;
@@ -20,12 +19,11 @@ interface ILoginProps {
     livingAdress: string;
     registrationAdress: string;
     passport: number;
-
+    shownPage:number;
 
     init: () => void;
-    setInput: (e:any) => void;
-    onButtonClick: () => void;
     goStepTwo: (e:any) => void;
+    goStepThree: (e:any) => void;
 
 }
 
@@ -40,36 +38,44 @@ class LoginPage extends React.Component<ILoginProps, IUserState> {
         this.props.init();
 
     }
-
+    firstSubmit = (values:any) => {
+        const sl:any = sleep(500);
+        sl.then(({...data}:any) =>{
+                this.props.goStepTwo(values);
+                console.log(this.props.phone);
+                });
+            }
+    secondSubmit = (values:any) => {
+        const sl:any = sleep(500);
+        sl.then(({...data}:any) =>{
+                this.props.goStepThree(values);
+                console.log(this.props.sex);
+                });
+            }
     render() {
+        var el:any;
+        if(this.props.shownPage === 1) {
+            el = (<FormStepOne onSubmit={this.firstSubmit}/>);
+        } else if (this.props.shownPage === 2) {
+            el = (<FormStepTwo onSubmit={this.secondSubmit} />);
+        } else if (this.props.shownPage === 3) {
+            el = (
+                <div>
+                    <h1>Thanks, {this.props.fullName}.</h1>
+                    <p>We will phone you {this.props.phone}</p>
+                    <p>Or email to {this.props.email}</p>
+                </div>);
+        }
+        console.log(el);
         return (
             <div className="LoginPage">
                 <div className="registration-form">
-                    <form>
-                        <div className="registration-field">
-                            <div className="registration-field-input">
-                                <input id="password" value={this.props.password} onChange={(e)=>{this.props.setInput(e)}}/>
-                                <label htmlFor="password">Введите ваш номер телефона</label>
-                            </div>
-                            <div className="registration-field-error">
-                                { this.props.passwordValidationText.map((rule:any)=>
-                                    <span className={ "input-error " + ( this.props.phoneValidationState || "") }>
-                                        {rule}
-                                    </span>
-                                    )
-                                }
-                            </div>
-                        </div>
-                    </form>
-                    <ContactForm onSubmit={this.submit} />
+                    {el}
                 </div>
             </div>
 
         );
 
-    }
-    submit(values:any) {
-        console.log(values);
     }
 
 }
@@ -77,10 +83,7 @@ class LoginPage extends React.Component<ILoginProps, IUserState> {
 const mapStateToProps = (state: IGlobalState, ownProps: any) => {
     return {
         phone: state.user.phone
-        , phoneValidationText: state.user.phoneValidationText
-        , phoneValidationState: state.user.phoneValidationState
         , password: state.user.password
-        , passwordValidationText: state.user.passwordValidationText
         , fullName: state.user.fullName
         , birthDate: state.user.birthDate
         , email: state.user.email
@@ -88,6 +91,7 @@ const mapStateToProps = (state: IGlobalState, ownProps: any) => {
         , livingAdress: state.user.livingAdress
         , registrationAdress: state.user.registrationAdress
         , passport: state.user.passport
+        , shownPage: state.user.shownPage
     }
 }
 
@@ -96,14 +100,11 @@ const mapDispatchToProps = (dispatch: any, ownProps: any) => {
         init: () => {
             dispatch(LoginActions.init())
         },
-        setInput: (e:any) => {
-            dispatch(LoginActions.setInput(e))
-        },
-        onButtonClick: () => {
-            dispatch(LoginActions.onButtonClick())
-        },
         goStepTwo: (e:any) => {
-            dispatch(LoginActions.onButtonClick())
+            dispatch(LoginActions.goStepTwo(e))
+        },
+        goStepThree: (e:any) => {
+            dispatch(LoginActions.goStepThree(e))
         }
     }
 }

@@ -4,35 +4,20 @@ export default class LoginReducer {
     static handle(state: any = new UserState, action: any): IUserState {
         switch (action.type) {
             case 'Login/Init': {
-                return {...state};
-            }
-            case 'Login/SetPhone': {
-                const input = action.payload.input;
-                let styl = 'input-error_normal';
-                let validationText:any = [];
-                if (action.payload.value.length < 4){
-                    styl = 'input-error_error';
-                    validationText = ['телефон должен содержать более 4 знаков']
-                } else if (action.payload.value.length > 4){
-                    styl = 'input-error_checked';
-                    validationText = ['телефон содержит более 4 знаков']
-                }
-                return {...state,phone:input,phoneValidationState:styl,phoneValidationText:validationText};
-            }
-            case 'Login/SetPassword': {
-                const input = action.payload.input;
-                let styl = 'input-error_normal';
-                let validationText:any = [];
-                if (action.payload.value.length < 4){
-                    styl = 'input-error_error';
-                    validationText = ['телефон должен содержать более 4 знаков']
-                }
-                return {...state,password:input,passwordValidationState:styl,passwordValidationText:validationText};
+                return {...state, shownPage: 1};
             }
             case 'Login/GoStepTwo': {
-                // const phone = action.payload.phone;
-                // console.log(phone)
-                return {...state};
+                const phoneNumber = action.payload.phoneNumber;
+                const page = action.payload.page;
+                return {...state, shownPage: page +1, phone:phoneNumber};
+            }
+            case 'Login/GoStepThree': {
+                const fullName = action.payload.fullName;
+                const birthDate = action.payload.birthDate;
+                const email = action.payload.email;
+                const sex = action.payload.sex;
+                const page = action.payload.page;
+                return {...state, shownPage: page+1 , fullName:fullName, birthDate:birthDate,email:email,sex:sex};
             }
             default: {
                 return state;

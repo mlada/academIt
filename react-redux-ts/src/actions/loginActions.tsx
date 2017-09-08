@@ -12,45 +12,27 @@ export class LoginActions {
 
         };
     }
-    static setInput(e:any):(dispatch:Redux.Dispatch<any>, getState:() => IGlobalState, thunkService:any) => any {
+    static goStepTwo(e:any):(dispatch:Redux.Dispatch<any>, getState:() => IGlobalState, thunkService:any) => any {
         return (dispatch:Redux.Dispatch<any>, getState:() => IGlobalState, thunkService:any) => {
-            const input = e.target;
-            console.log(input);
-            switch (input.id) {
-                case 'phone' :{
-                    dispatch({
-                        type: 'Login/SetPhone'
-                        , payload: input
-                    });
-                }
-                case 'password' :{
-                    dispatch({
-                        type: 'Login/SetPassword'
-                        , payload: input
-                    });
-                }
-            }
-
-
-
-        };
-    }
-    static onButtonClick():(dispatch:Redux.Dispatch<any>, getState:() => IGlobalState, thunkService:any) => any {
-        return (dispatch:Redux.Dispatch<any>, getState:() => IGlobalState, thunkService:any) => {
-           // const cookie = getCookie("phone");
-           //  console.log(cookie);
+            const phoneNumber = e.phone;
+            const page = getState().user.shownPage;
             dispatch({
-                type: 'Login/OnButtonClick'
+                type: 'Login/GoStepTwo'
+                ,payload: {phoneNumber,page}
             });
 
         };
     }
-    static goStepTwo(userInfo:any):(dispatch:Redux.Dispatch<any>, getState:() => IGlobalState, thunkService:any) => any {
+    static goStepThree(e:any):(dispatch:Redux.Dispatch<any>, getState:() => IGlobalState, thunkService:any) => any {
         return (dispatch:Redux.Dispatch<any>, getState:() => IGlobalState, thunkService:any) => {
-           console.log(userInfo.name);
+            const fullName = e.fullName;
+            const birthDate = e.birthDate;
+            const email = e.email;
+            const sex = e.sex;
+            const page = getState().user.shownPage;
             dispatch({
-                type: 'Login/GoStepTwo'
-                // , payload:value
+                type: 'Login/GoStepThree'
+                ,payload: {fullName,birthDate,email,sex,page}
             });
 
         };
