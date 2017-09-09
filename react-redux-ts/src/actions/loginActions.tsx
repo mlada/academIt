@@ -6,15 +6,18 @@ export class LoginActions {
 
     static init():(dispatch:Redux.Dispatch<any>, getState:() => IGlobalState, thunkService:any) => any {
         return (dispatch:Redux.Dispatch<any>, getState:() => IGlobalState, thunkService:any) => {
+            const phoneNumber = getState().user.phone;
             dispatch({
                 type: 'Login/Init'
+                ,payload: {phoneNumber}
+
             });
 
         };
     }
-    static goStepTwo(e:any):(dispatch:Redux.Dispatch<any>, getState:() => IGlobalState, thunkService:any) => any {
+    static goStepTwo(jsonValue:any):(dispatch:Redux.Dispatch<any>, getState:() => IGlobalState, thunkService:any) => any {
         return (dispatch:Redux.Dispatch<any>, getState:() => IGlobalState, thunkService:any) => {
-            const phoneNumber = e.phone;
+            const phoneNumber = jsonValue.phone;
             const page = getState().user.shownPage;
             dispatch({
                 type: 'Login/GoStepTwo'
@@ -23,12 +26,12 @@ export class LoginActions {
 
         };
     }
-    static goStepThree(e:any):(dispatch:Redux.Dispatch<any>, getState:() => IGlobalState, thunkService:any) => any {
+    static goStepThree(jsonValue:any):(dispatch:Redux.Dispatch<any>, getState:() => IGlobalState, thunkService:any) => any {
         return (dispatch:Redux.Dispatch<any>, getState:() => IGlobalState, thunkService:any) => {
-            const fullName = e.fullName;
-            const birthDate = e.birthDate;
-            const email = e.email;
-            const sex = e.sex;
+            const fullName = jsonValue.fullName;
+            const birthDate = jsonValue.birthDate;
+            const email = jsonValue.email;
+            const sex = jsonValue.sex;
             const page = getState().user.shownPage;
             dispatch({
                 type: 'Login/GoStepThree'

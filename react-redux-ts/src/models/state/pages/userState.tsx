@@ -13,11 +13,7 @@ export interface IUserState {
 }
 export class UserState implements IUserState{
     phone:number;
-    phoneValidationText:any;
-    phoneValidationState:any;
     password:any;
-    passwordValidationText:any;
-    passwordValidationState:any;
     fullName:string;
     birthDate:any;
     email:string;
@@ -27,13 +23,9 @@ export class UserState implements IUserState{
     passport:number;
     shownPage:number;
 
-    validationState:string;
 
     constructor() {
-        this.phoneValidationText = [
-        ];
-        this.passwordValidationText = [
-        ];
+        this.phone= 9079999999;
         this.shownPage = 1;
 
     }

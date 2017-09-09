@@ -1,12 +1,17 @@
 import * as React from 'react';
 import { Field, reduxForm } from 'redux-form'
 import './form.css';
+import normalizePhone from "./components/normalizePhone";
 
 /*validate*/
 const required:any = (value:boolean) => (value ? undefined : 'Обязательное поле');
+const maxLength = (max: number) => (value: string) =>
+    value && value.length > max ? `Длинна поля должна быть меньше ${max} символов` : undefined;
+const maxLength11: any = maxLength(11);
 const minLength = (min: number) => (value: string) =>
     value && value.length < min ? `Длинна поля должна быть больше ${min} символов` : undefined;
 const minLength6: any = minLength(6);
+const number: any = (value: number) => value && isNaN(Number(value)) ? 'Должно быть числом' : undefined;
 const cyrillic:any = (value:any) =>
     value && /[^а-яА-Я0-9ёЁ ]/i.test(value)
         ? 'Только кириллица'
@@ -17,6 +22,7 @@ const email = (value:any) =>
 
 /*normalize*/
 const lower = (value:string) => value && value.toLowerCase();
+
 
 const renderField:any = ({
         input,
@@ -46,12 +52,13 @@ const renderField:any = ({
         </div>
     </div>
 
-let FormStepTwo:any = (props:any) => {
+let FormStepThree:any = (props:any) => {
     const { handleSubmit, pristine, submitting } = props;
+
     return (
         <form onSubmit={ handleSubmit }>
             <Field
-                name="fullName"
+                name="fullname"
                 type="text"
                 component={renderField}
                 placeholder="Введите ФИО"
@@ -59,7 +66,18 @@ let FormStepTwo:any = (props:any) => {
                 normalize={lower}
             />
             <Field
-                name="birthDate"
+                name="phone"
+                type="text"
+                component={renderField}
+                value="907-999-9999"
+                placeholder="Введите номер телефона"
+                validate={[required]}
+                warn={[number,maxLength11,minLength6]}
+                normalize={normalizePhone}
+            />
+
+            <Field
+                name="birthdate"
                 type="date"
                 placeholder="Дата рождения"
                 validate={[required]}
@@ -87,9 +105,9 @@ let FormStepTwo:any = (props:any) => {
     )
 }
 
-FormStepTwo = reduxForm({
+FormStepThree = reduxForm({
     form: 'contact'
 
-})(FormStepTwo)
+})(FormStepThree)
 
-export default FormStepTwo;
+export default FormStepThree;

@@ -1,26 +1,25 @@
 import * as React from 'react';
 import { Field, reduxForm } from 'redux-form'
 import './form.css';
+import normalizePhone from './components/normalizePhone'
 
-/*validate*/
-const required:any = (value:boolean) => (value ? undefined : 'Обязательное поле');
-export const phoneNumber:any = (value:any) =>
-    value && !/^(0|[1-9][0-9]{9})$/i.test(value)
-        ? 'Неверный формат, должен содержать 10 знаков'
-        : undefined;
+const required = (value: any) => value ? undefined : 'Обязательное';
+const maxLength = (max: number) => (value: string) =>
+    value && value.length > max ? `Длинна поля должна быть меньше ${max} символов` : undefined;
+const maxLength13: any = maxLength(13);
+const minLength = (min: number) => (value: string) =>
+    value && value.length < min ? `Длинна поля должна быть больше ${min} символов` : undefined;
+const minLength6: any = minLength(6);
+const number: any = (value: number) => value && isNaN(Number(value)) ? 'Должно быть числом' : undefined;
 
-/*warn*/
-// const alphaNumeric:any = (value:any) =>
-//     value && /[^a-zA-Z0-9 ]/i.test(value)
-//         ? 'Only alphanumeric characters'
-//         : undefined;
 
 const renderField:any = ({
     input,
+    value,
     name,
     type,
     placeholder,
-    meta: { touched, error, warning }
+    meta: { touched, error, warn }
     }:any) =>
         <div className="registration-field">
             <div className="registration-field-input">
@@ -35,10 +34,11 @@ const renderField:any = ({
                         <span className="input-error input-error_error">
                             {error}
                         </span>) ||
-                    (warning &&
-                        <span className="input-error input-error_checked">
-                            {warning}
-                        </span>))
+                    (warn &&
+                        <span className="input-error input-error_error">
+                        {warn}
+                    </span>)
+                    )
                 }
             </div>
         </div>
@@ -53,10 +53,12 @@ let FormStepOne:any = (props:any) => {
                 name="phone"
                 type="text"
                 component={renderField}
-                placeholder="Номер телефона"
-                validate={[required, phoneNumber]}
-
+                placeholder="Введите номер телефона"
+                validate={[required,minLength6]}
+                warn={[number,maxLength13]}
+                normalize={normalizePhone}
             />
+
             <div className="registration-button_submit">
                 <button type="submit" disabled={pristine || submitting}>Далее</button>
             </div>

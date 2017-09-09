@@ -7,6 +7,7 @@ import {IUserState} from '../../../models/state/pages/userState';
 import {LoginActions} from '../../../actions/loginActions';
 import FormStepOne from '../../form/formPageOne';
 import FormStepTwo from "../../form/formPageTwo";
+// import FormStepThree from "../../form/formPageThree";
 // import {render} from "react-dom";
 const sleep = (ms:number) => new Promise(resolve => setTimeout(resolve, ms));
 interface ILoginProps {
@@ -15,10 +16,7 @@ interface ILoginProps {
     fullName: string;
     birthDate: any;
     email: string;
-    sex: any;
-    livingAdress: string;
-    registrationAdress: string;
-    passport: number;
+    sex: any
     shownPage:number;
 
     init: () => void;
@@ -33,7 +31,6 @@ class LoginPage extends React.Component<ILoginProps, IUserState> {
     constructor() {
         super();
     }
-
     componentWillMount() {
         this.props.init();
 
@@ -42,31 +39,80 @@ class LoginPage extends React.Component<ILoginProps, IUserState> {
         const sl:any = sleep(500);
         sl.then(({...data}:any) =>{
                 this.props.goStepTwo(values);
-                console.log(this.props.phone);
                 });
             }
     secondSubmit = (values:any) => {
         const sl:any = sleep(500);
         sl.then(({...data}:any) =>{
                 this.props.goStepThree(values);
-                console.log(this.props.sex);
                 });
             }
+    thirdSubmit = (values:any) => {
+        console.log(values)
+            }
+
     render() {
         var el:any;
+        const data = [
+            this.props.phone,
+            this.props.fullName,
+            this.props.birthDate,
+            this.props.email,
+            this.props.sex
+        ]
         if(this.props.shownPage === 1) {
-            el = (<FormStepOne onSubmit={this.firstSubmit}/>);
+            el = (
+                <div>
+                    <div className="progress-bar">
+                        <h1>Шаг {this.props.shownPage} из 2</h1>
+                    </div>
+                    <FormStepOne onSubmit={this.firstSubmit}/>
+                </div>);
         } else if (this.props.shownPage === 2) {
-            el = (<FormStepTwo onSubmit={this.secondSubmit} />);
+            el = (
+                <div>
+                    <div className="progress-bar">
+                        <h1>Шаг {this.props.shownPage} из 2</h1>
+                    </div>
+                    <FormStepTwo onSubmit={this.secondSubmit} />
+                </div>);
         } else if (this.props.shownPage === 3) {
             el = (
                 <div>
-                    <h1>Thanks, {this.props.fullName}.</h1>
-                    <p>We will phone you {this.props.phone}</p>
-                    <p>Or email to {this.props.email}</p>
+                    <h2>{this.props.fullName}, здравствуйте!</h2>
+                    <table>
+                        <tbody>
+                        <tr>
+                            <td>
+                                <p>Phone</p>
+                            </td>
+                            <td>
+                                <p>{this.props.phone}</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p>Email</p>
+                            </td>
+                            <td>
+                                <p>{this.props.email}</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p>BirthDate</p>
+                            </td>
+                            <td>
+                                <p>{this.props.birthDate}</p>
+                            </td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+                    <a></a>
                 </div>);
         }
-        console.log(el);
+        console.log(data);
         return (
             <div className="LoginPage">
                 <div className="registration-form">
@@ -75,9 +121,7 @@ class LoginPage extends React.Component<ILoginProps, IUserState> {
             </div>
 
         );
-
     }
-
 }
 
 const mapStateToProps = (state: IGlobalState, ownProps: any) => {
@@ -88,9 +132,6 @@ const mapStateToProps = (state: IGlobalState, ownProps: any) => {
         , birthDate: state.user.birthDate
         , email: state.user.email
         , sex: state.user.sex
-        , livingAdress: state.user.livingAdress
-        , registrationAdress: state.user.registrationAdress
-        , passport: state.user.passport
         , shownPage: state.user.shownPage
     }
 }

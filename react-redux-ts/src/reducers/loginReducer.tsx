@@ -4,7 +4,8 @@ export default class LoginReducer {
     static handle(state: any = new UserState, action: any): IUserState {
         switch (action.type) {
             case 'Login/Init': {
-                return {...state, shownPage: 1};
+                const phoneNumber = action.payload.phoneNumber;
+                return {...state, shownPage: 1,phone:phoneNumber};
             }
             case 'Login/GoStepTwo': {
                 const phoneNumber = action.payload.phoneNumber;
