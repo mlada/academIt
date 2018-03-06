@@ -1,2 +1,3 @@
-# web-trainings
-Web training sources
+# Учебный
+
+Тут лежат учебные проекты с курсов АкадемИТ. 
